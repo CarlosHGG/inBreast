@@ -5,12 +5,12 @@ Created on Fri Mar 18 09:32:53 2022
 @author: User
 """
 
-import cv2
+#import cv2
 import pydicom as dcm
 import pandas as pd
 import numpy as np
 import os
-import imutils
+#import imutils
 
 
 

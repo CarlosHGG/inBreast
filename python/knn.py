@@ -11,21 +11,22 @@ import matplotlib.pyplot as plt
 
 def categ_T_Bn(path,f_T_Bn):
     df_T_Bn = pd.read_csv(path+f_T_Bn)
-    toL_T_Bn = df_T_Bn['ruta'].tolist()
+    toL_T_Bn = df_T_Bn['Ruta'].tolist()
     L_T_Bn = [path+v for v in toL_T_Bn]
-    for v in L_T_Bn:
-        switch(-n:)
-
+    #for v in L_T_Bn:
+    print(path,f_T_Bn,": ",len(L_T_Bn))
     C_T_Bn = []
     for v in L_T_Bn:
         d = np.load(v)
         d = d[d.files[0]]
         d = np.ravel(d,order='C')
         C_T_Bn.append(d)
+    
     return C_T_Bn
 
 
-path = 'C:/Users/User/Dropbox/CarlosHugo/SALIDA/'
+#path = 'C:/Users/User/Dropbox/CarlosHugo/SALIDA/'
+path = '/Volumes/MacHD//Users/carlosg/Dropbox/CarlosHugo/SALIDA/'
 
 #TEST
 f_tst_B2 = "Mass-Test__BI-RADS_2.csv"
@@ -39,11 +40,11 @@ f_trn_B5 = "Mass-Training__BI-RADS_5.csv"
 #TRAINING
 C_trn_B2 = categ_T_Bn(path,f_trn_B2)
 #C_trn_B3 = categ_T_Bn(path,f_trn_B3)
-#C_trn_B5 = categ_T_Bn(path,f_trn_B5)
+C_trn_B5 = categ_T_Bn(path,f_trn_B5)
 #TEST
-#C_tst_B2 = categ_T_Bn(path,f_tst_B2)
-#C_tst_B3 = categ_T_Bn(path,f_tst_B3)
-#C_tst_B5 = categ_T_Bn(path,f_tst_B5)
+C_tst_B2 = categ_T_Bn(path,f_tst_B2)
+C_tst_B3 = categ_T_Bn(path,f_tst_B3)
+C_tst_B5 = categ_T_Bn(path,f_tst_B5)
 np.savetxt('C_Trn_B2.csv',C_trn_B2)
 
 
