@@ -8,6 +8,7 @@ hola
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from imutils import paths
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
@@ -43,6 +44,7 @@ f_tst_B5 = "Mass-Test__BI-RADS_5.csv"
 f_trn_B2 = "Mass-Training__BI-RADS_2.csv"
 f_trn_B3 = "Mass-Training__BI-RADS_3.csv"
 f_trn_B5 = "Mass-Training__BI-RADS_5.csv"
+image_paths = list(paths.list(path+'Mass-Training_'))
 
 #TRAINING
 C_trn_B2,lbl_trn_b2= categ_T_Bn(path,f_trn_B2)
