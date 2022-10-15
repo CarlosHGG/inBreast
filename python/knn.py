@@ -7,12 +7,8 @@ hola
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from imutils import paths
 from sklearn.metrics import classification_report
-from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import LabelEncoder
 
 
 def categ_T_Bn(path,file):
@@ -31,7 +27,15 @@ def categ_T_Bn(path,file):
         cp = unpacking(path+L_paths[v*8+5])
         vr = unpacking(path+L_paths[v*8+6])
         #cr = unpacking(path+L_paths[v*8+7])
-        Unpacking_data.append(np.concatenate((mn,pvr,cn,hm,cs,cp,vr), axis=None)) #Lista de los vectores    
+        
+        #Unpacking_data.append(np.concatenate((mn,pvr,cn,hm,cs,cp,vr), axis=None)) #Lista de los vectores    
+        Unpacking_data.append(mn)
+        Unpacking_data.append(pvr)
+        Unpacking_data.append(cn)
+        Unpacking_data.append(hm)
+        Unpacking_data.append(cs)
+        Unpacking_data.append(cp)
+        Unpacking_data.append(vr)
         #Unpacking_data.append(np.ravel(features,order='C')) #Lista de los vectores    
     return Unpacking_data
 
@@ -84,19 +88,11 @@ y_tst = np.array(y_tst)
 
 # Entrenamos el modelo.
 print("Training Model.")
-model = KNeighborsClassifier(n_neighbors=9, n_jobs=8)
+model = KNeighborsClassifier(n_neighbors=5, n_jobs=8)
 model.fit(x_trn, y_trn)
 print("END:")
 # Imprimimos el reporte de clasificaciÃ³n.
+#report = classification_report(y_tst, model.predict(x_tst), target_names=['B2','B3','B5'])
 print(classification_report(y_tst, model.predict(x_tst), target_names=['B2','B3','B5']))
 #x = dataset.iloc[:,]
 
-#from slkearn.model_selection import train_test_split
-print(" mn[0][0]",C_trn_B2[0][0][0],"[0][1]",C_trn_B2[0][0][1],"[0][2]",C_trn_B2[0][0][2],"[0][3]",C_trn_B2[0][0][3])
-print("pvr[0][0]",C_trn_B2[1][0][0],"[0][1]",C_trn_B2[1][0][1],"[0][2]",C_trn_B2[1][0][2],"[0][3]",C_trn_B2[1][0][3])
-print(" cn[0][0]",C_trn_B2[2][0][0],"[0][1]",C_trn_B2[2][0][1],"[0][2]",C_trn_B2[2][0][2],"[0][3]",C_trn_B2[2][0][3])
-print(" hm[0][0]",C_trn_B2[3][0][0],"[0][1]",C_trn_B2[3][0][1],"[0][2]",C_trn_B2[3][0][2],"[0][3]",C_trn_B2[3][0][3])
-print(" cs[0][0]",C_trn_B2[4][0][0],"[0][1]",C_trn_B2[4][0][1],"[0][2]",C_trn_B2[4][0][2],"[0][3]",C_trn_B2[4][0][3])
-print(" cp[0][0]",C_trn_B2[5][0][0],"[0][1]",C_trn_B2[5][0][1],"[0][2]",C_trn_B2[5][0][2],"[0][3]",C_trn_B2[5][0][3])
-print(" vr[0][0]",C_trn_B2[6][0][0],"[0][1]",C_trn_B2[6][0][1],"[0][2]",C_trn_B2[6][0][2],"[0][3]",C_trn_B2[6][0][3])
-print(" cr[0][0]",C_trn_B2[7][0][0],"[0][1]",C_trn_B2[7][0][1],"[0][2]",C_trn_B2[7][0][2],"[0][3]",C_trn_B2[7][0][3])
