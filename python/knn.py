@@ -11,6 +11,25 @@ from sklearn.metrics import classification_report
 from sklearn.neighbors import KNeighborsClassifier
 
 
+"""
+% Calculo de atributo de textura
+        % 1. Mean -> mn
+        % 2. Pseudo-Variance -> pvr
+        % 3. Variance -> vr
+        % 4. Energy -> enX
+        % 5. Correlation -> cr
+        % 6. Entropy -> etX
+        % 7. Constrast -> cn
+        % 8. Homogeneity -> hm
+        % 9. Cluster shade -> cs
+        % 10. Cluster prominence -> cp
+        
+
+
+"""
+
+
+
 def categ_T_Bn(path,file):
     df = pd.read_csv(path+file) #Leer archivo .csv
     L_paths= df['Ruta'].tolist() #Generar un dataframe con los datos en la columna Ruta
@@ -21,21 +40,23 @@ def categ_T_Bn(path,file):
     for v in range(0,l): #v = un elemento de la lista
         mn = unpacking(path+L_paths[v*8+0]) #Cargar arreglos decapados en archivos .npz
         pvr = unpacking(path+L_paths[v*8+1])#fastidio
-        cn = unpacking(path+L_paths[v*8+2])
-        hm = unpacking(path+L_paths[v*8+3])
-        cs = unpacking(path+L_paths[v*8+4])
-        cp = unpacking(path+L_paths[v*8+5])
-        vr = unpacking(path+L_paths[v*8+6])
+        vr = unpacking(path+L_paths[v*8+2])
+        cr = unpacking(path+L_paths[v*8+3])
+        cn = unpacking(path+L_paths[v*8+4])
+        hm = unpacking(path+L_paths[v*8+5])
+        cs = unpacking(path+L_paths[v*8+6])
+        cp = unpacking(path+L_paths[v*8+7])
         #cr = unpacking(path+L_paths[v*8+7])
         
         #Unpacking_data.append(np.concatenate((mn,pvr,cn,hm,cs,cp,vr), axis=None)) #Lista de los vectores    
         Unpacking_data.append(mn)
         Unpacking_data.append(pvr)
+        Unpacking_data.append(vr)
+        Unpacking_data.append(cr)
         Unpacking_data.append(cn)
         Unpacking_data.append(hm)
         Unpacking_data.append(cs)
         Unpacking_data.append(cp)
-        Unpacking_data.append(vr)
         #Unpacking_data.append(np.ravel(features,order='C')) #Lista de los vectores    
     return Unpacking_data
 
@@ -46,17 +67,17 @@ def unpacking(path):
     return feature
 
 #path = 'C:/Users/User/Dropbox/CarlosHugo/SALIDA/' #windows
-path = '/Volumes/MacHD//Users/carlosg/Dropbox/CarlosHugo/SALIDA/' #macos
+path = '/Volumes/DataHD/SALIDA/' #macos
 
 #TRAINING
 f_trn_B2 = "Mass-Training__BI-RADS_2.csv"
 f_trn_B3 = "Mass-Training__BI-RADS_3.csv"
-f_trn_B5 = "Mass-Training__BI-RADS_5.csv"
+f_trn_B5 = "Mass-Training__BI-RADS_4.csv"
 
 #TEST
 f_tst_B2 = "Mass-Test__BI-RADS_2.csv"
 f_tst_B3 = "Mass-Test__BI-RADS_3.csv"
-f_tst_B5 = "Mass-Test__BI-RADS_5.csv"
+f_tst_B5 = "Mass-Test__BI-RADS_4.csv"
 
 #TRAINING
 print("UNPACKING FEATURES BIRADS 2 TRAINIG...")
@@ -88,7 +109,7 @@ y_tst = np.array(y_tst)
 
 # Entrenamos el modelo.
 print("Training Model.")
-model = KNeighborsClassifier(n_neighbors=5, n_jobs=8)
+model = KNeighborsClassifier(n_neighbors=9, n_jobs=8)
 model.fit(x_trn, y_trn)
 print("END:")
 # Imprimimos el reporte de clasificaciÃ³n.
